@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:milkshake_practise/ui/resources/asset_manager.dart';
+import 'package:milkshake_practise/ui/resources/color_manager.dart';
+import 'package:milkshake_practise/ui/resources/string_manager.dart';
+import 'package:milkshake_practise/ui/resources/values_manager.dart';
+import 'package:milkshake_practise/ui/widgets/text_widget.dart';
+
+import '../widgets/button_widget.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -11,44 +17,54 @@ class WelcomeScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset(ImageAssets.welcomeImage),
+            Stack(children: [
+              Image.asset(ImageAssets.welcomeImage),
+              Image.asset(ImageAssets.fadedImage)
+            ]),
             Image.asset(ImageAssets.mycropageImage),
             const SizedBox(
-              height: 45,
+              height: AppSize.s45,
             ),
-            SocialButton(),
+            ButtonWidget(
+              buttonTitle: AppStrings.signUpWithGoogle,
+              withIcon: true,
+              isFilled: false,
+              iconImage: ImageAssets.googleIc,
+            ),
             const SizedBox(
-              height: 20,
+              height: AppSize.s20,
             ),
-            SocialButton()
+            ButtonWidget(
+              buttonTitle: AppStrings.signUpWithGoogle,
+              withIcon: true,
+              isFilled: false,
+              iconImage: ImageAssets.appleIc,
+            ),
+            const SizedBox(
+              height: AppSize.s20,
+            ),
+            const ButtonWidget(buttonTitle: AppStrings.signUpWithEmail),
+            const SizedBox(
+              height: AppSize.s10,
+            ),
+            RichText(
+              text: TextSpan(
+                text: AppStrings.alreadyHaveAnAccount,
+                style: const TextStyle(color: AppColors.primary),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: AppStrings.logIn,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
-    );
-  }
-}
-
-class SocialButton extends StatelessWidget {
-  const SocialButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 350,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blueAccent, width: 2.0),
-        borderRadius: BorderRadius.circular(100),
-      ),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(ImageAssets.googleIc),
-        const SizedBox(
-          width: 10,
-        ),
-        Text("Signup with Google")
-      ]),
     );
   }
 }
