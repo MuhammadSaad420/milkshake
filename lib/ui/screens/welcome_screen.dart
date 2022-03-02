@@ -17,13 +17,10 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       child: SingleChildScrollView(
-        padding: EdgeInsets.only(bottom: AppSize.s10),
+        padding: const EdgeInsets.only(bottom: AppSize.s10),
         child: Column(
           children: [
-            Stack(children: [
-              Image.asset(ImageAssets.welcomeImage),
-              Image.asset(ImageAssets.fadedImage)
-            ]),
+            Image.asset(ImageAssets.welcomeImage),
             Image.asset(ImageAssets.mycropageImage),
             const SizedBox(
               height: AppSize.s45,
