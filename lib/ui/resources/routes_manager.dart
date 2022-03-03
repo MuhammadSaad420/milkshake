@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:milkshake_practise/ui/resources/string_manager.dart';
-import 'package:milkshake_practise/ui/screens/brand_image_screen.dart';
+import 'package:milkshake_practise/ui/screens/brand%20image/brand_image_screen.dart';
+import 'package:milkshake_practise/ui/screens/brand%20image/unsplash_library.dart';
 import 'package:milkshake_practise/ui/screens/fonts_screen.dart';
 import 'package:milkshake_practise/ui/screens/welcome_screen.dart';
 
@@ -14,6 +15,7 @@ class Routes {
   static const String brandNameRoute = '/brandName';
   static const String fontsRoute = '/fonts';
   static const String brandImageRoute = '/brandImage';
+  static const String unsplashLibraryRoute = '/unsplashLibrary';
 }
 
 class RouteGenerator {
@@ -29,7 +31,7 @@ class RouteGenerator {
         );
       case Routes.brandNameRoute:
         return MaterialPageRoute(
-          builder: (_) => const BrandNameScreen(),
+          builder: (_) => BrandNameScreen(),
         );
       case Routes.fontsRoute:
         return MaterialPageRoute(
@@ -37,7 +39,11 @@ class RouteGenerator {
         );
       case Routes.brandImageRoute:
         return MaterialPageRoute(
-          builder: (_) => const BrandImageScreen(),
+          builder: (_) => BrandImageScreen(),
+        );
+      case Routes.unsplashLibraryRoute:
+        return MaterialPageRoute(
+          builder: (_) => const UnsplashLibrary(),
         );
       default:
         return undefinedRoute();
@@ -46,10 +52,8 @@ class RouteGenerator {
 
   static Route undefinedRoute() {
     return MaterialPageRoute(
-      builder: (_) => Scaffold(
-        body: Container(
-          child: const Text(AppStrings.noDefinedRoute),
-        ),
+      builder: (_) => const Scaffold(
+        body: Text(AppStrings.noDefinedRoute),
       ),
     );
   }

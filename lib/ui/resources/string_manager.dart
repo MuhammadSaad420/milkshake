@@ -49,5 +49,12 @@ class AppStrings {
       "Upload a logo or an image for your brand.Transluscent background image file, such as png format works the best.";
   static const String uploadImage = "Upload Image";
   static const String setUpLaterText = "Set Up Later in Settings";
+  static const String useCamera = "Use Camera";
+
+  static const String chooseFromLibrary = "Choose from Library";
+
+  static const String chooseFromUnsplash = "Choose from Unsplash";
+
+  static const String cancel="Cancel";
   AppStrings._();
 }

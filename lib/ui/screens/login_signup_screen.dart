@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:milkshake_practise/business_logic/view_model/login_screen_viewmodel.dart';
+import 'package:milkshake_practise/services/service_locator.dart';
 import 'package:milkshake_practise/ui/resources/color_manager.dart';
 import 'package:milkshake_practise/ui/resources/font_manager.dart';
 import 'package:milkshake_practise/ui/resources/routes_manager.dart';
@@ -7,6 +9,7 @@ import 'package:milkshake_practise/ui/resources/values_manager.dart';
 import 'package:milkshake_practise/ui/widgets/button_widget.dart';
 import 'package:milkshake_practise/ui/widgets/text_widget.dart';
 import 'package:milkshake_practise/app/extensions/ui_extensions.dart';
+import 'package:provider/provider.dart';
 
 import '../resources/asset_manager.dart';
 import '../widgets/rich_text.dart';
@@ -16,6 +19,7 @@ class LoginSignUpScreen extends StatelessWidget {
   final bool login;
   String _email = '';
   String _password = '';
+  LoginScreenViewModel viewModel = serviceLocator<LoginScreenViewModel>();
   final _formKey = GlobalKey<FormState>();
   LoginSignUpScreen({Key? key, required this.login}) : super(key: key);
 
@@ -34,137 +38,147 @@ class LoginSignUpScreen extends StatelessWidget {
       }
     }
 
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const SizedBox(height: AppSize.s76),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextWidget(
-                    title: login ? AppStrings.logIn : AppStrings.signUp,
-                    textColor: AppColors.black,
-                    fontWeight: FontWeightManager.bold,
-                    fontSize: FontSize.s28,
+    return ChangeNotifierProvider(
+      create: (context) => viewModel,
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+            child: Consumer<LoginScreenViewModel>(
+              builder: ((context, model, child) {
+                return Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: AppSize.s76),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextWidget(
+                          title: login ? AppStrings.logIn : AppStrings.signUp,
+                          textColor: AppColors.black,
+                          fontWeight: FontWeightManager.bold,
+                          fontSize: FontSize.s28,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s37,
+                      ),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextWidget(
+                          title: AppStrings.yourEmail,
+                          textColor: AppColors.grey1,
+                          fontWeight: FontWeightManager.semiBold,
+                          fontSize: FontSize.s11,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s6,
+                      ),
+                      SimpleFormField(
+                        hintText: AppStrings.hintMail,
+                        inputType: TextInputType.emailAddress,
+                        onValidateHandler: (value) => value?.isEmailValid,
+                        onSavedHandler: (value) {
+                          _email = value!;
+                        },
+                      ),
+                      const SizedBox(
+                        height: AppSize.s16,
+                      ),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextWidget(
+                          title: AppStrings.yourPassword,
+                          textColor: AppColors.grey1,
+                          fontWeight: FontWeightManager.semiBold,
+                          fontSize: FontSize.s11,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s6,
+                      ),
+                      SimpleFormField(
+                        isVisible: false,
+                        hintText: AppStrings.passwordPlaceholder,
+                        inputAction: TextInputAction.done,
+                        onValidateHandler: (value) {
+                          return value?.isPasswordValid;
+                        },
+                        onSavedHandler: (value) {
+                          _password = value!;
+                        },
+                      ),
+                      const SizedBox(
+                        height: AppSize.s11,
+                      ),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextWidget(
+                          title: AppStrings.forgotPassword,
+                          textColor: AppColors.primary,
+                          fontWeight: FontWeightManager.normal,
+                          fontSize: FontSize.s17,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s11,
+                      ),
+                      ButtonWidget(
+                        buttonTitle:
+                            login ? AppStrings.logIn : AppStrings.signUp,
+                        onBtnPressed: _validateFields,
+                      ),
+                      const SizedBox(
+                        height: AppSize.s11,
+                      ),
+                      const TextWidget(
+                          title: AppStrings.or, textColor: AppColors.grey1),
+                      const SizedBox(
+                        height: AppSize.s11,
+                      ),
+                      ButtonWidget(
+                        buttonTitle: login
+                            ? AppStrings.signInWithGoogle
+                            : AppStrings.signInWithApple,
+                        withIcon: true,
+                        isFilled: false,
+                        iconImage: ImageAssets.googleIc,
+                        onBtnPressed: () {},
+                      ),
+                      const SizedBox(
+                        height: AppSize.s11,
+                      ),
+                      ButtonWidget(
+                        buttonTitle: login
+                            ? AppStrings.signInWithApple
+                            : AppStrings.signUpWithApple,
+                        withIcon: true,
+                        isFilled: false,
+                        iconImage: ImageAssets.appleIc,
+                        onBtnPressed: () {},
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(
-                  height: AppSize.s37,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextWidget(
-                    title: AppStrings.yourEmail,
-                    textColor: AppColors.grey1,
-                    fontWeight: FontWeightManager.semiBold,
-                    fontSize: FontSize.s11,
-                  ),
-                ),
-                const SizedBox(
-                  height: AppSize.s6,
-                ),
-                SimpleFormField(
-                  hintText: AppStrings.hintMail,
-                  inputType: TextInputType.emailAddress,
-                  onValidateHandler: (value) => value?.isEmailValid,
-                  onSavedHandler: (value) {
-                    _email = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: AppSize.s16,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextWidget(
-                    title: AppStrings.yourPassword,
-                    textColor: AppColors.grey1,
-                    fontWeight: FontWeightManager.semiBold,
-                    fontSize: FontSize.s11,
-                  ),
-                ),
-                const SizedBox(
-                  height: AppSize.s6,
-                ),
-                SimpleFormField(
-                  isVisible: false,
-                  hintText: AppStrings.passwordPlaceholder,
-                  inputAction: TextInputAction.done,
-                  onValidateHandler: (value) {
-                    return value?.isPasswordValid;
-                  },
-                  onSavedHandler: (value) {
-                    _password = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: AppSize.s11,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextWidget(
-                    title: AppStrings.forgotPassword,
-                    textColor: AppColors.primary,
-                    fontWeight: FontWeightManager.normal,
-                    fontSize: FontSize.s17,
-                  ),
-                ),
-                const SizedBox(
-                  height: AppSize.s11,
-                ),
-                ButtonWidget(
-                  buttonTitle: login ? AppStrings.logIn : AppStrings.signUp,
-                  onBtnPressed: _validateFields,
-                ),
-                const SizedBox(
-                  height: AppSize.s11,
-                ),
-                const TextWidget(
-                    title: AppStrings.or, textColor: AppColors.grey1),
-                const SizedBox(
-                  height: AppSize.s11,
-                ),
-                ButtonWidget(
-                  buttonTitle: login
-                      ? AppStrings.signInWithGoogle
-                      : AppStrings.signInWithApple,
-                  withIcon: true,
-                  isFilled: false,
-                  iconImage: ImageAssets.googleIc,
-                  onBtnPressed: () {},
-                ),
-                const SizedBox(
-                  height: AppSize.s11,
-                ),
-                ButtonWidget(
-                  buttonTitle: login
-                      ? AppStrings.signInWithApple
-                      : AppStrings.signUpWithApple,
-                  withIcon: true,
-                  isFilled: false,
-                  iconImage: ImageAssets.appleIc,
-                  onBtnPressed: () {},
-                ),
-              ],
+                );
+              }),
             ),
           ),
         ),
+        bottomSheet: !login ? _bottomSheetWidget() : null,
       ),
-      bottomSheet: !login
-          ? Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  AlreadyHaveAnAccountWidget(),
-                ],
-              ),
-            )
-          : null,
+    );
+  }
+
+  Padding _bottomSheetWidget() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppPadding.p10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          AlreadyHaveAnAccountWidget(),
+        ],
+      ),
     );
   }
 }
