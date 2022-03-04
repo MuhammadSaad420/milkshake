@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:milkshake_practise/ui/resources/routes_manager.dart';
 
@@ -64,7 +67,8 @@ class FontScreen extends StatelessWidget {
             ButtonWidget(
                 buttonTitle: AppStrings.continueTitle,
                 onBtnPressed: () {
-                  Navigator.pushNamed(context, Routes.brandImageRoute);
+                  Navigator.pushNamed(context, Routes.brandImageRoute,
+                      arguments: Uint8List(0));
                 })
           ],
         ),

@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:milkshake_practise/ui/resources/string_manager.dart';
@@ -39,7 +42,8 @@ class RouteGenerator {
         );
       case Routes.brandImageRoute:
         return MaterialPageRoute(
-          builder: (_) => BrandImageScreen(),
+          builder: (_) =>
+              BrandImageScreen(croppedData: settings.arguments as Uint8List),
         );
       case Routes.unsplashLibraryRoute:
         return MaterialPageRoute(

@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:milkshake_practise/ui/resources/color_manager.dart';
 import 'package:milkshake_practise/ui/resources/values_manager.dart';
 import 'package:milkshake_practise/ui/screens/brand%20image/image_crop.dart';
+import 'package:milkshake_practise/ui/widgets/app_bar.dart';
 import '../../../business_logic/model/unsplash.dart';
 import '../../../provider/unsplash_image_provider.dart';
 
@@ -25,35 +27,62 @@ class _UnsplashLibraryState extends State<UnsplashLibrary> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 2, mainAxisSpacing: 2),
-          itemCount: images.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                //Navigator.pop(context,images[index].getRegularUrl());
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) =>
-                            ImageCrop(imUrl: images[index].getRegularUrl())));
-              },
-              child: Container(
-                height: AppSize.s126,
-                width: AppSize.s126,
-                color: AppColors.black,
-                child: Image.network(
-                  images[index].getRegularUrl(),
-                  fit: BoxFit.fill,
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const AppBarWidget(
+              backTitle: "Cancel",
+              mainTitle: "Unsplash",
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 5, 16, 22),
+              child: CupertinoSearchTextField(
+                backgroundColor: AppColors.grey1,
+                onSubmitted: (value) {
+                  _loadImages(keyword: value);
+                },
+                onSuffixTap: () {
+                  _loadImages();
+                },
+              ),
+            ),
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 2),
+                  itemCount: images.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        //Navigator.pop(context,images[index].getRegularUrl());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ImageCrop(
+                                    imUrl: images[index].getRegularUrl())));
+                      },
+                      child: Container(
+                        height: AppSize.s126,
+                        width: AppSize.s126,
+                        color: AppColors.black,
+                        child: Image.network(
+                          images[index].getRegularUrl(),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
@@ -77,8 +106,14 @@ class _UnsplashLibraryState extends State<UnsplashLibrary> {
     });
 
     List<UnsplashImage> images;
-
-    images = await UnsplashImageProvider.loadImages(page: ++page);
+    if (keyword == null) {
+      images = await UnsplashImageProvider.loadImages(page: ++page);
+    } else {
+      List res = await UnsplashImageProvider.loadImagesWithKeyword(keyword,
+          page: ++page);
+      totalPages = res[0];
+      images = res[1];
+    }
 
     setState(() {
       loadingImages = false;

@@ -1,9 +1,7 @@
-import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:milkshake_practise/business_logic/view_model/brand_image_screen_viewmodel.dart';
 import 'package:milkshake_practise/services/service_locator.dart';
 import 'package:milkshake_practise/ui/resources/asset_manager.dart';
@@ -19,7 +17,9 @@ import '../../widgets/button_widget.dart';
 import '../../widgets/text_widget.dart';
 
 class BrandImageScreen extends StatefulWidget {
-  BrandImageScreen({Key? key}) : super(key: key);
+  final Uint8List croppedData;
+  const BrandImageScreen({Key? key, required this.croppedData})
+      : super(key: key);
 
   @override
   State<BrandImageScreen> createState() => _BrandImageScreenState();
@@ -76,36 +76,32 @@ class _BrandImageScreenState extends State<BrandImageScreen> {
                             width: AppSize.s126,
                             height: AppSize.s126,
                             color: AppColors.grey2,
-                            child: (splashUrl == null)
-                                ? (model.imageFile == null)
-                                    ? Image.asset(
-                                        ImageAssets.placeholderImage,
+                            child: (widget.croppedData.isEmpty)
+                                ? (splashUrl == null)
+                                    ? (model.imageFile == null)
+                                        ? Image.asset(
+                                            ImageAssets.placeholderImage,
+                                          )
+                                        : Image.file(
+                                            model.imageFile!,
+                                            fit: BoxFit.cover,
+                                          )
+                                    : ExtendedImage.network(
+                                        splashUrl!,
+                                        fit: BoxFit.contain,
+                                        onDoubleTap: (value) {},
+                                        mode: ExtendedImageMode.editor,
+                                        extendedImageEditorKey: editorKey,
+                                        initEditorConfigHandler: (state) {
+                                          return EditorConfig(
+                                              maxScale: 8.0,
+                                              cropRectPadding:
+                                                  EdgeInsets.all(20.0),
+                                              hitTestSize: 20.0,
+                                              cropAspectRatio: 3 / 4);
+                                        },
                                       )
-                                    : Image.file(
-                                        model.imageFile!,
-                                        fit: BoxFit.cover,
-                                      )
-                                : ExtendedImage.network(
-                                  
-                                    splashUrl!,
-                                    fit: BoxFit.contain,
-                                    onDoubleTap: (value){},
-                                    mode: ExtendedImageMode.editor,
-                                    extendedImageEditorKey: editorKey,
-                                    initEditorConfigHandler: (state) {
-                                      return EditorConfig(
-                                          maxScale: 8.0,
-                                          cropRectPadding: EdgeInsets.all(20.0),
-                                          hitTestSize: 20.0,
-                                          cropAspectRatio: 3 / 4);
-                                    },
-                                  )
-
-                            // Image.network(
-                            //     splashUrl!,
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            ),
+                                : Image.memory(widget.croppedData)),
                       ),
                       SizedBox(height: AppSize.s22),
                       GestureDetector(
