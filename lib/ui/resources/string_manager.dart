@@ -63,5 +63,13 @@ class AppStrings {
       "Choose a light or dark theme for your appsite. This will apply on your site menu and content.";
 
   static const String button = "Button";
+
+  //url screen
+  static const String urlFieldTitle = "URL";
+  static const String preUrl = "mycropage.com/";
+  static const String urlTakenError = "This URL is already taken.";
+  static const String urlFieldSubTitle =
+      "Claim your own url for your appsite.Tab Done to go live.";
+
   AppStrings._();
 }

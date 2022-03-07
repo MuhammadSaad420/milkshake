@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:milkshake_practise/business_logic/view_model/appsite_theme_viewmodel.dart';
 import 'package:milkshake_practise/services/service_locator.dart';
 import 'package:milkshake_practise/ui/resources/asset_manager.dart';
+import 'package:milkshake_practise/ui/resources/routes_manager.dart';
 import 'package:milkshake_practise/ui/screens/appsite_theme/components/custom_checkbox.dart';
 import 'package:provider/provider.dart';
 
@@ -108,8 +109,10 @@ class BrandThemeScreen extends StatelessWidget {
                     ButtonWidget(
                       buttonTitle: AppStrings.continueTitle,
                       onBtnPressed: () {
-                        // Navigator.pushNamed(context, Routes.brandImageRoute,
-                        //     arguments: Uint8List(0));
+                        Navigator.pushNamed(
+                          context,
+                          Routes.urlRoute,
+                        );
                       },
                     )
                   ],
