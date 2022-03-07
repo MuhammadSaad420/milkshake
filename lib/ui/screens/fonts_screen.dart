@@ -72,7 +72,8 @@ class FontScreen extends StatelessWidget {
                 })
           ],
         ),
-      )),
+      ),
+      ),
     );
   }
 }

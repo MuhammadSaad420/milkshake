@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:milkshake_practise/ui/resources/string_manager.dart';
 import 'package:milkshake_practise/ui/screens/brand%20image/brand_image_screen.dart';
 import 'package:milkshake_practise/ui/screens/brand%20image/unsplash_library.dart';
+import 'package:milkshake_practise/ui/screens/appsite_theme/appsite_theme.dart';
 import 'package:milkshake_practise/ui/screens/fonts_screen.dart';
 import 'package:milkshake_practise/ui/screens/welcome_screen.dart';
 
@@ -18,6 +19,7 @@ class Routes {
   static const String brandNameRoute = '/brandName';
   static const String fontsRoute = '/fonts';
   static const String brandImageRoute = '/brandImage';
+  static const String brandThemeRoute = '/brandTheme';
   static const String unsplashLibraryRoute = '/unsplashLibrary';
 }
 
@@ -44,6 +46,10 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) =>
               BrandImageScreen(croppedData: settings.arguments as Uint8List),
+        );
+      case Routes.brandThemeRoute:
+        return MaterialPageRoute(
+          builder: (_) => BrandThemeScreen(),
         );
       case Routes.unsplashLibraryRoute:
         return MaterialPageRoute(

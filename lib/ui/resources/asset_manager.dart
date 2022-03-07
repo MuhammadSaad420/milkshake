@@ -11,4 +11,7 @@ class ImageAssets {
   static const String addSplashIc = "$BASE_PATH/addSplashIc.png";
   static const String graphicsIc = "$BASE_PATH/graphicsIc.png";
   static const String placeholderImage = "$BASE_PATH/placeholderImage.png";
+  static const String ic_checkbox = "$BASE_PATH/ic_checkbox.png";
+  static const String ic_uncheckbox = "$BASE_PATH/ic_uncheckbox.png";
+  static const String ic_uncheckbox_white = "$BASE_PATH/ic_unchecked_white.png";
 }

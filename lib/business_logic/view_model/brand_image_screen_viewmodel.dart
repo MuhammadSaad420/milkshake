@@ -8,7 +8,7 @@ import '../../services/service_locator.dart';
 class BrandImageScreenViewModel extends ChangeNotifier {
   File? _imageFile;
   File? get imageFile => _imageFile;
-  void pickImageFromCamera() async {
+  Future<void> pickImageFromCamera() async {
     XFile? _file = await serviceLocator<ImagePicker>()
         .pickImage(source: ImageSource.camera);
     _imageFile = File(_file!.path);

@@ -96,7 +96,7 @@ class _BrandImageScreenState extends State<BrandImageScreen> {
                                           return EditorConfig(
                                               maxScale: 8.0,
                                               cropRectPadding:
-                                                  EdgeInsets.all(20.0),
+                                                  const EdgeInsets.all(20.0),
                                               hitTestSize: 20.0,
                                               cropAspectRatio: 3 / 4);
                                         },
@@ -122,7 +122,8 @@ class _BrandImageScreenState extends State<BrandImageScreen> {
                       ButtonWidget(
                           buttonTitle: AppStrings.continueTitle,
                           onBtnPressed: () {
-                            //Navigator.pushNamed(context, Routes.brandImageRoute);
+                            Navigator.pushNamed(
+                                context, Routes.brandThemeRoute);
                           }),
                       SizedBox(
                         height: AppSize.s14,

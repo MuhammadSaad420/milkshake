@@ -55,6 +55,13 @@ class AppStrings {
 
   static const String chooseFromUnsplash = "Choose from Unsplash";
 
-  static const String cancel="Cancel";
+  static const String cancel = "Cancel";
+
+  //appsite theme screen
+  static const String appSiteThemeHeading = "Appsite Theme";
+  static const String appSiteThemeSubHeading =
+      "Choose a light or dark theme for your appsite. This will apply on your site menu and content.";
+
+  static const String button = "Button";
   AppStrings._();
 }

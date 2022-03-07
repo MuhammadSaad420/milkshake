@@ -51,6 +51,10 @@ class AppSize {
   static const double s17=17.0;
 
   static const double s56=56.0;
+
+  static const double s7=7.0;
+
+  static const double s36=36.0;
 }
 
 class AppMargin {
