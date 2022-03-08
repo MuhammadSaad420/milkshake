@@ -5,6 +5,8 @@ import 'package:milkshake_practise/ui/resources/values_manager.dart';
 import 'package:milkshake_practise/ui/widgets/text_widget.dart';
 
 class ButtonWidget extends StatelessWidget {
+  final isDisabled;
+  final bool isBorderStadium;
   final double? height;
   final double? width;
   final bool withIcon;
@@ -21,6 +23,8 @@ class ButtonWidget extends StatelessWidget {
     required this.buttonTitle,
     this.isFilled = true,
     required this.onBtnPressed,
+    this.isBorderStadium = true,
+    this.isDisabled = false,
   }) : super(key: key);
 
   @override
@@ -31,9 +35,17 @@ class ButtonWidget extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: isFilled ? AppColors.primary : null,
-          border: Border.all(color: AppColors.primary, width: AppSize.s2),
-          borderRadius: BorderRadius.circular(AppSize.s100),
+          color: isFilled
+              ? !isDisabled
+                  ? AppColors.primary
+                  : AppColors.disableColor
+              : null,
+          border: !isDisabled
+              ? Border.all(color: AppColors.primary, width: AppSize.s2)
+              : Border.all(color: AppColors.disableColor, width: AppSize.s2),
+          borderRadius: isBorderStadium
+              ? BorderRadius.circular(AppSize.s100)
+              : BorderRadius.circular(AppSize.s14),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +55,9 @@ class ButtonWidget extends StatelessWidget {
             TextWidget(
               title: buttonTitle,
               textColor: isFilled
-                  ? AppColors.white
+                  ? !isDisabled
+                      ? AppColors.white
+                      : AppColors.grey1
                   : CupertinoTheme.of(context).textTheme.textStyle.color!,
             ),
           ],

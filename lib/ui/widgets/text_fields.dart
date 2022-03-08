@@ -203,6 +203,11 @@ class UrlFormFieldWithIcon extends StatelessWidget {
               Radius.circular(AppSize.s15),
             ),
             borderSide: BorderSide(color: AppColors.grey5, width: 1)),
+        focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(AppSize.s15),
+            ),
+            borderSide: BorderSide(color: AppColors.primary, width: 1)),
         errorBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(AppSize.s15),

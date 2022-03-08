@@ -10,6 +10,7 @@ import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
 import '../widgets/button_widget.dart';
+import '../widgets/description_widget.dart';
 import '../widgets/text_fields.dart';
 import '../widgets/text_widget.dart';
 
@@ -24,6 +25,7 @@ class UrlScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: ((context) => viewModel),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(
@@ -40,113 +42,83 @@ class UrlScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const TextWidget(
-                            title: AppStrings.urlFieldTitle,
-                            textColor: AppColors.black,
-                            fontSize: FontSize.s24,
-                            fontWeight: FontWeightManager.bold,
-                          ),
-                          const SizedBox(
-                            height: AppSize.s8,
-                          ),
-                          const TextWidget(
-                            title: AppStrings.urlFieldSubTitle,
-                            textColor: AppColors.grey1,
-                            fontWeight: FontWeightManager.normal,
-                            alignemt: TextAlign.center,
-                          ),
-                          const SizedBox(
-                            height: AppSize.s46,
-                          ),
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextWidget(
-                              title: AppStrings.preUrl,
-                              textColor: AppColors.grey1,
-                              fontWeight: FontWeightManager.semiBold,
-                              fontSize: FontSize.s11,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: AppSize.s6,
-                          ),
-                          UrlFormFieldWithIcon(
-                            nameFieldController: _textEditingController,
-                            iconPressed: () {
-                              if (model.isSomethingEntered) {
-                                _textEditingController.clear();
-                              }
-                            },
-                            iconImage: _getWidget(model),
-                            hintText: AppStrings.urlFieldTitle,
-                            inputType: TextInputType.emailAddress,
-                            onValidateHandler: (value) {
-                              if (value!.isEmpty) {
-                                return AppStrings.emptyFieldError;
-                              }
-                            },
-                            onSavedHandler: (value) {},
-                            onTextEntered: (value) {
-                              if (!value!.isEmpty) {
-                                if (value.length >= 9) {
-                                  if (value == "takentaken") {
-                                    print("inside");
-                                    model.setUrlTaken(true);
-                                    model.setUrlGreat(false);
-                                    model.setSomethingEntered(false);
-                                    return;
-                                  } else {
-                                    model.setUrlGreat(true);
+                          Column(
+                            children: [
+                              const TextWidget(
+                                title: AppStrings.urlFieldTitle,
+                                textColor: AppColors.black,
+                                fontSize: FontSize.s24,
+                                fontWeight: FontWeightManager.bold,
+                              ),
+                              const SizedBox(
+                                height: AppSize.s8,
+                              ),
+                              const TextWidget(
+                                title: AppStrings.urlFieldSubTitle,
+                                textColor: AppColors.grey1,
+                                fontWeight: FontWeightManager.normal,
+                                alignemt: TextAlign.center,
+                              ),
+                              const SizedBox(
+                                height: AppSize.s46,
+                              ),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: TextWidget(
+                                  title: AppStrings.preUrl,
+                                  textColor: AppColors.grey1,
+                                  fontWeight: FontWeightManager.semiBold,
+                                  fontSize: FontSize.s11,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: AppSize.s6,
+                              ),
+                              UrlFormFieldWithIcon(
+                                nameFieldController: _textEditingController,
+                                iconPressed: () {
+                                  if (model.isSomethingEntered) {
+                                    _textEditingController.clear();
                                   }
-                                } else {
-                                  model.setSomethingEntered(true);
-                                  model.setUrlGreat(false);
-                                }
-                              } else {
-                                model.setSomethingEntered(false);
-                                model.setUrlTaken(false);
-                                model.setUrlGreat(false);
-                              }
-                            },
-                          ),
-                          model.isUrlGreat
-                              ? const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: AppPadding.p19,
-                                      vertical: AppPadding.p5),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: TextWidget(
-                                      title: AppStrings.greatName,
+                                },
+                                iconImage: _getWidget(model),
+                                hintText: AppStrings.urlFieldTitle,
+                                inputType: TextInputType.emailAddress,
+                                onValidateHandler: (value) {
+                                  if (value!.isEmpty) {
+                                    return AppStrings.emptyFieldError;
+                                  }
+                                },
+                                onSavedHandler: (value) {},
+                                onTextEntered: (value) {
+                                  textEnteredEvent(value, model);
+                                },
+                              ),
+                              model.isUrlGreat
+                                  ? DescriptionText(
+                                      text: AppStrings.greatName,
                                       textColor: AppColors.green,
-                                      fontSize: FontSize.s11,
-                                    ),
-                                  ),
-                                )
-                              : model.isUrlTaken
-                                  ? const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: AppPadding.p19,
-                                          vertical: AppPadding.p5),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: TextWidget(
-                                          title: AppStrings.urlTakenError,
-                                          textColor: AppColors.error,
-                                          fontSize: FontSize.s11,
-                                        ),
-                                      ),
                                     )
-                                  : Container()
+                                  : model.isUrlTaken
+                                      ? DescriptionText(
+                                          text: AppStrings.urlTakenError,
+                                          textColor: AppColors.error,
+                                        )
+                                      : Container()
+                            ],
+                          ),
                         ],
                       ),
                       ButtonWidget(
+                          isDisabled: !model.isUrlGreat,
+                          isBorderStadium: false,
                           buttonTitle: AppStrings.continueTitle,
                           onBtnPressed: () {
-                            if (model.isUrlGreat) {
-                              Navigator.pushNamed(context, Routes.fontsRoute);
-                            }
+                            // if (model.isUrlGreat) {
+                            // }
+                            
                           })
                     ],
                   );
@@ -159,20 +131,35 @@ class UrlScreen extends StatelessWidget {
     );
   }
 
+  void textEnteredEvent(String? value, UrlScreenViewModel model) {
+    if (!value!.isEmpty) {
+      if (value.length >= 9) {
+        if (value == "takentaken") {
+          model.setUrlTaken(true);
+          model.setUrlGreat(false);
+          model.setSomethingEntered(false);
+          return;
+        } else {
+          model.setUrlGreat(true);
+        }
+      } else {
+        model.setSomethingEntered(true);
+        model.setUrlGreat(false);
+      }
+    } else {
+      model.setSomethingEntered(false);
+      model.setUrlTaken(false);
+      model.setUrlGreat(false);
+    }
+  }
+
   _getWidget(UrlScreenViewModel model) {
-    //model.isSomethingEntered
-    // ? model.isUrlGreat
-    //     ? ImageAssets.tickIc
-    //     : model.isUrlTaken
-    //         ? ImageAssets.ic_error
-    //         : ImageAssets.ic_pencil
-    // : ImageAssets.ic_pencil,
-    if (model.isSomethingEntered) {
-      return ImageAssets.ic_cross;
-    } else if (model.isUrlGreat) {
+    if (model.isUrlGreat) {
       return ImageAssets.tickIc;
     } else if (model.isUrlTaken) {
       return ImageAssets.ic_error;
+    } else if (model.isSomethingEntered) {
+      return ImageAssets.ic_cross;
     } else {
       return ImageAssets.ic_pencil;
     }

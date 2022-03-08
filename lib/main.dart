@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:milkshake_practise/services/service_locator.dart';
-import 'package:milkshake_practise/ui/resources/color_manager.dart';
 import 'package:milkshake_practise/ui/resources/routes_manager.dart';
 import 'package:milkshake_practise/ui/resources/theme_manager/theme_dark.dart';
 import 'package:milkshake_practise/ui/resources/theme_manager/theme_light.dart';
 import 'package:provider/provider.dart';
-
 import 'provider/theme_provider.dart';
 
 void main() {
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
             theme: themeProvider.isDark
                 ? ThemeDark.getThemeData()
                 : ThemeLight.getThemeData(),
-            initialRoute: Routes.brandThemeRoute,
+            initialRoute: Routes.adminHomeRoute,
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         }));
