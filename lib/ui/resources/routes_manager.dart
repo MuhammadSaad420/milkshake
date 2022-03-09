@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:milkshake_practise/ui/resources/string_manager.dart';
-import 'package:milkshake_practise/ui/screens/admin_home.dart';
+import 'package:milkshake_practise/ui/screens/admin_home/admin_home.dart';
 import 'package:milkshake_practise/ui/screens/brand%20image/brand_image_screen.dart';
 import 'package:milkshake_practise/ui/screens/brand%20image/unsplash_library.dart';
 import 'package:milkshake_practise/ui/screens/appsite_theme/appsite_theme.dart';

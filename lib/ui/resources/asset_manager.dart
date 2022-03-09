@@ -18,4 +18,8 @@ class ImageAssets {
   static const String ic_pencil = "$BASE_PATH/ic_pencil.png";
   static const String ic_error = "$BASE_PATH/ic_error.png";
   static const String sample_background = "$BASE_PATH/splash_bg.jpg";
+  static const String ic_catalog = "$BASE_PATH/ic_catalog.png";
+  static const String ic_visitor = "$BASE_PATH/ic_visitor.png";
+  static const String ic_plus = "$BASE_PATH/ic_plus.png";
+  static const String mycropage_white = "$BASE_PATH/mycropage_white.png";
 }

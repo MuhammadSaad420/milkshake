@@ -32,6 +32,7 @@ class _UnsplashLibraryState extends State<UnsplashLibrary> {
         body: Column(
           children: [
             const AppBarWidget(
+              appBarType: AppBarType.DOUBLE,
               backTitle: "Cancel",
               mainTitle: "Unsplash",
             ),

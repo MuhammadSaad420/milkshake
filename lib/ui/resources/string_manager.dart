@@ -71,5 +71,14 @@ class AppStrings {
   static const String urlFieldSubTitle =
       "Claim your own url for your appsite.Tab Done to go live.";
 
+  //admin home
+  static const String addYourFirst = "Add your first widget";
+  static const String getStarted = "GET STARTED";
+  static const String madeWith = "Made with";
+  static const String home = "Home";
+  static const String catalog = "Catalog";
+  static const String visitors = "Visitors";
+  static const String account = "Account";
+
   AppStrings._();
 }

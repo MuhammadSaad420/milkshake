@@ -13,7 +13,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light),
+        statusBarIconBrightness: Brightness.dark),
   );
   setUpServiceLocator();
   runApp(const MyApp());
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             theme: themeProvider.isDark
                 ? ThemeDark.getThemeData()
                 : ThemeLight.getThemeData(),
-            initialRoute: Routes.adminHomeRoute,
+            initialRoute: Routes.welcomeRoute,
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         }));

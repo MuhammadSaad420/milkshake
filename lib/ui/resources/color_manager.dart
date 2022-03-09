@@ -12,6 +12,7 @@ class AppColors {
   static const Color grey4 = Color(0x6F72783D);
   static const Color grey5 = Color(0xffD1D1D6);
   static const Color disableColor = Color(0xffF2F2F7);
+  static const Color appBarColor = Color(0xCCF7F7F7);
   // static const Color grey3 = Color.fromARGB(118, 118, 128, 128);
   static const Color error = Colors.red;
   static const Color bgLightScaffold = Color(0xFFF9F9FB);
