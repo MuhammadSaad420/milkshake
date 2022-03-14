@@ -77,13 +77,16 @@ class AppBarWidget extends StatelessWidget {
             height: AppSize.s56,
             width: double.infinity,
             child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
                   height: AppSize.s40,
                   child: Row(
                     children: [
-                      const Icon(Icons.arrow_back_ios),
+                      const Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColors.primary,
+                      ),
                       TextWidget(
                           title: backTitle!, textColor: AppColors.primary)
                     ],

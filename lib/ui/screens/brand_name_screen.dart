@@ -11,7 +11,6 @@ import 'package:milkshake_practise/ui/widgets/app_bar.dart';
 import 'package:milkshake_practise/ui/widgets/button_widget.dart';
 import 'package:milkshake_practise/ui/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/text_fields.dart';
 
 class BrandNameScreen extends StatelessWidget {

@@ -14,6 +14,7 @@ import 'package:milkshake_practise/ui/screens/welcome_screen.dart';
 
 import '../screens/brand_name_screen.dart';
 import '../screens/login_signup_screen.dart';
+import '../screens/texture/texture.dart';
 
 class Routes {
   static const String welcomeRoute = '/';
@@ -24,6 +25,7 @@ class Routes {
   static const String brandThemeRoute = '/brandTheme';
   static const String urlRoute = '/url';
   static const String adminHomeRoute = '/adminHome';
+  static const String textureRoute = '/texture';
   static const String unsplashLibraryRoute = '/unsplashLibrary';
 }
 
@@ -54,6 +56,10 @@ class RouteGenerator {
       case Routes.brandThemeRoute:
         return MaterialPageRoute(
           builder: (_) => BrandThemeScreen(),
+        );
+      case Routes.textureRoute:
+        return MaterialPageRoute(
+          builder: (_) => TextureScreen(),
         );
       case Routes.urlRoute:
         return MaterialPageRoute(

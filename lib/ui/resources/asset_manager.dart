@@ -22,4 +22,5 @@ class ImageAssets {
   static const String ic_visitor = "$BASE_PATH/ic_visitor.png";
   static const String ic_plus = "$BASE_PATH/ic_plus.png";
   static const String mycropage_white = "$BASE_PATH/mycropage_white.png";
+  static const String iphone_image = "$BASE_PATH/iphone_image.png";
 }
